@@ -462,7 +462,15 @@ export default function Dashboard() {
         {/* 메인 매트릭스 */}
         <div className="card overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
+            <table className="w-full text-sm border-collapse table-fixed">
+              <colgroup>
+                <col style={{ width: '170px' }} />
+                <col style={{ width: '60px' }} />
+                <col style={{ width: '100px' }} />
+                {Array.from({ length: DAYS_IN_MONTH }, (_, i) => (
+                  <col key={i} />
+                ))}
+              </colgroup>
               <thead>
                 <tr className="bg-neutral-100 border-b border-neutral-200">
                   <th className="sticky left-0 bg-neutral-100 z-10 px-4 py-3 text-left text-sm font-semibold text-neutral-500 border-r border-neutral-200 min-w-[170px]">
@@ -699,7 +707,14 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
           <div className="text-xs text-neutral-500 mb-3">
             각 셀은 해당 일자에 직원이 응답한 횟수입니다 (4회 중). 근무지 달성은 시간대별 응답 인원이 TO 이상인지로 판정되며, 셀을 클릭하면 그 일자의 시간대별 상세를 볼 수 있습니다.
           </div>
-          <table className="w-full text-sm border-collapse">
+          <table className="w-full text-sm border-collapse table-fixed">
+            <colgroup>
+              <col style={{ width: '120px' }} />
+              <col style={{ width: '100px' }} />
+              {Array.from({ length: DAYS_IN_MONTH }, (_, i) => (
+                <col key={i} />
+              ))}
+            </colgroup>
             <thead>
               <tr className="bg-neutral-100 border-b border-neutral-200">
                 <th className="sticky left-0 bg-neutral-100 z-10 px-3 py-2 text-left text-xs font-semibold text-neutral-500 border-r border-neutral-200 min-w-[120px]">
