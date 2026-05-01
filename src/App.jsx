@@ -328,7 +328,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-stone-50 font-[system-ui]" style={{ fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" }}>
       {/* 헤더 */}
       <header className="bg-white border-b border-stone-200">
-        <div className="max-w-[1600px] mx-auto px-8 py-6">
+        <div className="max-w-none mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 text-xs text-stone-500 font-medium tracking-wide mb-1">
@@ -376,7 +376,7 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-[1600px] mx-auto px-8 py-8">
+      <main className="max-w-none mx-auto px-6 py-8">
         {/* 통계 카드 */}
         <div className="grid grid-cols-4 gap-4 mb-8">
           <StatCard
@@ -734,19 +734,19 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
             <tbody>
               {employees.map((emp) => (
                 <tr key={emp.id} className="border-b border-stone-100 last:border-b-0">
-                  <td className="sticky left-0 bg-white z-10 px-3 py-2 font-medium text-stone-900 border-r border-stone-200">
+                  <td className="sticky left-0 bg-white z-10 px-3 py-3.5 font-medium text-stone-900 border-r border-stone-200">
                     {emp.name}
                   </td>
-                  <td className="px-3 py-2 text-center text-stone-600 text-xs border-r border-stone-200">
+                  <td className="px-3 py-3.5 text-center text-stone-600 text-xs border-r border-stone-200">
                     {emp.empNo}
                   </td>
                   {Array.from({ length: DAYS_IN_MONTH }, (_, i) => i + 1).map((day) => {
                     const { ok, total } = getEmployeeDayResult(emp, day, responses);
                     const allOk = ok === total;
                     return (
-                      <td key={day} className="px-1 py-1 border-r border-stone-100 last:border-r-0">
+                      <td key={day} className="px-1 py-2.5 border-r border-stone-100 last:border-r-0">
                         <div
-                          className={`mx-auto w-full py-1 rounded text-[10px] font-semibold text-center ${
+                          className={`mx-auto w-full py-2 rounded text-[10px] font-semibold text-center ${
                             allOk
                               ? 'bg-stone-800 text-white'
                               : 'bg-stone-50 text-stone-600 border border-stone-300'
@@ -913,7 +913,7 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
 
   return (
     <div className="fixed inset-0 bg-stone-900/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-[2200px] max-h-[92vh] w-[88vw] overflow-hidden flex flex-col">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-[1100px] max-h-[92vh] w-[55vw] overflow-hidden flex flex-col">
         {/* 헤더 */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-stone-200">
           <div>
