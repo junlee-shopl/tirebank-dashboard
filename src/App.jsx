@@ -524,19 +524,7 @@ export default function Dashboard() {
                         </div>
                       </td>
                       <td className="px-3 py-3 text-center text-stone-700 border-r border-stone-200">
-                        {store.hasToChange ? (
-                          <div
-                            className="flex flex-col items-center leading-tight"
-                            title={formatToHistory(store)}
-                          >
-                            <span className="font-semibold">
-                              {store.toHistory[0].to}→{store.currentTO}
-                            </span>
-                            <span className="text-[10px] text-amber-600 font-medium">변경</span>
-                          </div>
-                        ) : (
-                          <span>{store.currentTO}</span>
-                        )}
+                        <span>{store.currentTO}</span>
                       </td>
                       <td className="px-3 py-3 text-center border-r border-stone-200">
                         <div className="flex flex-col items-center leading-tight">
@@ -591,7 +579,7 @@ export default function Dashboard() {
             <li><strong>달성 기준</strong>: 매 시간대(09/12/14/18시)마다 응답한 직원 수가 매장의 TO(목표 인원) 이상이면 그 시간대 통과, 4시간대 모두 통과 시 그날 달성입니다.</li>
             <li>TO는 시간대별로 매장에 최소한으로 확보되어야 하는 응답 인원으로, 등록 직원 수와 다릅니다.</li>
             <li>매장명 클릭 → 직원별 일자 상세 / 매트릭스 셀 클릭 → 시간대별 직원 응답 상세 / 날짜 클릭 → 매장별 시간대 현황</li>
-            <li>컬럼 헤더(근무지명/TO/달성률)를 클릭하여 정렬할 수 있습니다. TO가 변경된 매장은 '변경' 표시가 나타납니다.</li>
+            <li>컬럼 헤더(근무지명/TO/달성률)를 클릭하여 정렬할 수 있습니다.</li>
           </ul>
         </div>
       </main>
