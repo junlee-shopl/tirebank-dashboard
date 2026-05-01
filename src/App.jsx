@@ -496,7 +496,7 @@ export default function Dashboard() {
                     <th
                       key={day}
                       onClick={() => setSelectedDay(day)}
-                      className="px-1 py-3 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 last:border-r-0 cursor-pointer hover:bg-neutral-150 transition-colors min-w-[24px]"
+                      className="px-0.5 py-3 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 last:border-r-0 cursor-pointer hover:bg-neutral-150 transition-colors min-w-[12px]"
                     >
                       <div>{day}</div>
                       <div className={`text-[10px] mt-0.5 ${getDayOfWeek(day) === '일' ? 'text-red-500' : getDayOfWeek(day) === '토' ? 'text-blue-500' : 'text-neutral-400'}`}>
@@ -550,11 +550,11 @@ export default function Dashboard() {
                               e.stopPropagation();
                               setSelectedCell({ storeName: store.name, day });
                             }}
-                            className="px-1 py-2 cursor-pointer"
+                            className="px-0.5 py-2 cursor-pointer"
                           >
                             <div
                               title={`${store.name} · 4월 ${day}일 · ${fulfilled ? '달성' : '미달성'} (클릭 시 상세)`}
-                              className={`mx-auto w-full h-5 rounded transition-transform hover:scale-125 ${
+                              className={`mx-auto w-full h-2.5 rounded-sm transition-transform hover:scale-125 ${
                                 fulfilled
                                   ? 'bg-brand'
                                   : 'bg-neutral-150'
