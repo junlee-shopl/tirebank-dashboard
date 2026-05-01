@@ -5,12 +5,12 @@ import * as XLSX from 'xlsx';
 // ============================================================
 // 데이터 정의
 // ============================================================
-// STORES: 각 매장은 toHistory 배열로 TO 변경 이력을 가짐.
+// STORES: 각 근무지은 toHistory 배열로 TO 변경 이력을 가짐.
 // toHistory[i] = { from: 일자(1~30), to: 인원수 } - from일부터 다음 변경 전까지 적용
 // ============================================================
 // 데이터 정의
 // ============================================================
-// 각 매장: name(근무지명), code(근무지코드), staff(등록 직원 수), toHistory(TO 변경 이력)
+// 각 근무지: name(근무지명), code(근무지코드), staff(등록 직원 수), toHistory(TO 변경 이력)
 // TO = 시간대별 최소 응답 인원 (등록 직원 수와 다름)
 // staff(등록 직원)은 TO보다 큼 - 휴가/조퇴 고려
 // toHistory = [{from: 시작일, to: 해당 일부터 적용될 TO}, ...]
@@ -62,7 +62,7 @@ function seededRandom(seed) {
   return x - Math.floor(x);
 }
 
-// 직원 생성 - 매장당 staff(등록 직원 수)명 생성
+// 직원 생성 - 근무지당 staff(등록 직원 수)명 생성
 function generateEmployees() {
   const employees = [];
   STORES.forEach((store, sIdx) => {
@@ -115,7 +115,7 @@ function generateResponses(employees) {
   return responses;
 }
 
-// 매장의 시간대별 응답 인원 (배정 근무지 응답 직원 수)
+// 근무지의 시간대별 응답 인원 (배정 근무지 응답 직원 수)
 function getTimeSlotResponseCount(storeName, day, time, employees, responses) {
   const storeEmps = employees.filter((e) => e.storeName === storeName);
   return storeEmps.filter(
@@ -123,7 +123,7 @@ function getTimeSlotResponseCount(storeName, day, time, employees, responses) {
   ).length;
 }
 
-// 매장×일자 달성 여부
+// 근무지×일자 달성 여부
 // 새 로직: 모든 시간대에 응답 인원 >= 그 일자의 TO 이면 달성
 function isStoreFulfilled(storeName, day, employees, responses) {
   const store = STORES.find((s) => s.name === storeName);
@@ -134,7 +134,7 @@ function isStoreFulfilled(storeName, day, employees, responses) {
   });
 }
 
-// 매장 달성 일수 (전체 30일 중)
+// 근무지 달성 일수 (전체 30일 중)
 function getStoreFulfilledCount(storeName, employees, responses) {
   let count = 0;
   for (let day = 1; day <= DAYS_IN_MONTH; day++) {
@@ -193,7 +193,7 @@ export default function Dashboard() {
     }));
   };
 
-  // 매장별 통계
+  // 근무지별 통계
   const storeStats = useMemo(() => {
     return STORES.map((store) => {
       const fulfilledCount = getStoreFulfilledCount(store.name, employees, responses);
@@ -224,7 +224,7 @@ export default function Dashboard() {
     };
   }, [storeStats, employees]);
 
-  // 표시 매장 목록 (검색 + 필터 + 정렬 적용)
+  // 표시 근무지 목록 (검색 + 필터 + 정렬 적용)
   const displayStores = useMemo(() => {
     let result = storeStats;
 
@@ -271,7 +271,7 @@ export default function Dashboard() {
   const handleDownloadExcel = () => {
     const wb = XLSX.utils.book_new();
 
-    // 시트 1: 요약 (매장 × 일자 매트릭스)
+    // 시트 1: 요약 (근무지 × 일자 매트릭스)
     const summaryHeader = ['근무지명', '근무지코드', '등록직원', 'TO', '달성률', '달성/전체'];
     for (let day = 1; day <= DAYS_IN_MONTH; day++) {
       summaryHeader.push(`4/${day}`);
@@ -337,7 +337,7 @@ export default function Dashboard() {
                 <span>위치 확인 모니터링</span>
               </div>
               <h1 className="text-2xl font-bold text-stone-900 tracking-tight">
-                매장별 근무 달성 현황
+                근무지별 근무 달성 현황
               </h1>
             </div>
             <div className="flex items-center gap-4">
@@ -381,7 +381,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-4 gap-4 mb-8">
           <StatCard
             icon={<Store className="w-5 h-5" />}
-            label="전체 매장"
+            label="전체 근무지"
             value={totalStats.totalStores}
             unit="개"
           />
@@ -393,7 +393,7 @@ export default function Dashboard() {
           />
           <StatCard
             icon={<AlertCircle className="w-5 h-5" />}
-            label="미달성 발생 매장"
+            label="미달성 발생 근무지"
             value={totalStats.unfulfilledStores}
             unit={`/ ${totalStats.totalStores}개`}
           />
@@ -434,17 +434,17 @@ export default function Dashboard() {
                 onChange={(e) => setFilterMode(e.target.checked ? 'unfulfilled' : 'all')}
                 className="w-4 h-4 accent-stone-900 cursor-pointer"
               />
-              <span className="font-medium">미달성 매장만 보기</span>
+              <span className="font-medium">미달성 근무지만 보기</span>
             </label>
             {(searchQuery || filterMode === 'unfulfilled' || sortConfig.key) && (
               <span className="text-xs text-stone-500">
-                {displayStores.length}개 매장 표시
+                {displayStores.length}개 근무지 표시
               </span>
             )}
           </div>
           <div className="flex items-center gap-4 text-xs text-stone-500">
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 bg-stone-800 rounded-sm" />
+              <div className="w-3 h-3 bg-[#3299fe] rounded-sm" />
               <span>달성</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -460,7 +460,7 @@ export default function Dashboard() {
             <table className="w-full text-sm border-collapse">
               <thead>
                 <tr className="bg-stone-50 border-b border-stone-200">
-                  <th className="sticky left-0 bg-stone-50 z-10 px-4 py-3 text-left text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[170px]">
+                  <th className="sticky left-0 bg-stone-50 z-10 px-4 py-3 text-left text-sm font-semibold text-stone-600 border-r border-stone-200 min-w-[170px]">
                     <button
                       onClick={() => handleSort('name')}
                       className="flex items-center gap-1 hover:text-stone-900 transition-colors"
@@ -469,7 +469,7 @@ export default function Dashboard() {
                       <SortIcon active={sortConfig.key === 'name'} direction={sortConfig.direction} />
                     </button>
                   </th>
-                  <th className="px-3 py-3 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[60px]">
+                  <th className="px-3 py-3 text-center text-sm font-semibold text-stone-600 border-r border-stone-200 min-w-[60px]">
                     <button
                       onClick={() => handleSort('to')}
                       className="flex items-center justify-center gap-1 mx-auto hover:text-stone-900 transition-colors"
@@ -478,7 +478,7 @@ export default function Dashboard() {
                       <SortIcon active={sortConfig.key === 'to'} direction={sortConfig.direction} />
                     </button>
                   </th>
-                  <th className="px-3 py-3 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[100px]">
+                  <th className="px-3 py-3 text-center text-sm font-semibold text-stone-600 border-r border-stone-200 min-w-[100px]">
                     <button
                       onClick={() => handleSort('rate')}
                       className="flex items-center justify-center gap-1 mx-auto hover:text-stone-900 transition-colors"
@@ -491,7 +491,7 @@ export default function Dashboard() {
                     <th
                       key={day}
                       onClick={() => setSelectedDay(day)}
-                      className="px-0.5 py-3 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 last:border-r-0 cursor-pointer hover:bg-stone-100 transition-colors min-w-[28px]"
+                      className="px-0 py-3 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 last:border-r-0 cursor-pointer hover:bg-stone-100 transition-colors min-w-[14px]"
                     >
                       <div>{day}</div>
                       <div className={`text-[10px] mt-0.5 ${getDayOfWeek(day) === '일' ? 'text-red-500' : getDayOfWeek(day) === '토' ? 'text-blue-500' : 'text-stone-400'}`}>
@@ -545,13 +545,13 @@ export default function Dashboard() {
                               e.stopPropagation();
                               setSelectedCell({ storeName: store.name, day });
                             }}
-                            className="px-0.5 py-1.5 cursor-pointer"
+                            className="px-0 py-1.5 cursor-pointer"
                           >
                             <div
                               title={`${store.name} · 4월 ${day}일 · ${fulfilled ? '달성' : '미달성'} (클릭 시 상세)`}
                               className={`mx-auto w-full h-4 rounded-sm transition-transform hover:scale-125 ${
                                 fulfilled
-                                  ? 'bg-stone-800'
+                                  ? 'bg-[#3299fe]'
                                   : 'bg-stone-100'
                               }`}
                             />
@@ -570,15 +570,15 @@ export default function Dashboard() {
         <div className="mt-6 p-4 bg-blue-50/50 border border-blue-200 rounded-lg">
           <div className="text-xs font-semibold text-blue-900 mb-1">사용 안내</div>
           <ul className="text-xs text-blue-800/90 space-y-0.5 list-disc list-inside">
-            <li><strong>달성 기준</strong>: 매 시간대(09/12/14/18시)마다 응답한 직원 수가 매장의 TO(목표 인원) 이상이면 그 시간대 통과, 4시간대 모두 통과 시 그날 달성입니다.</li>
-            <li>TO는 시간대별로 매장에 최소한으로 확보되어야 하는 응답 인원으로, 등록 직원 수와 다릅니다.</li>
-            <li>매장명 클릭 → 직원별 일자 상세 / 매트릭스 셀 클릭 → 시간대별 직원 응답 상세 / 날짜 클릭 → 매장별 시간대 현황</li>
+            <li><strong>달성 기준</strong>: 매 시간대(09/12/14/18시)마다 응답한 직원 수가 근무지의 TO(목표 인원) 이상이면 그 시간대 통과, 4시간대 모두 통과 시 그날 달성입니다.</li>
+            <li>TO는 시간대별로 근무지에 최소한으로 확보되어야 하는 응답 인원으로, 등록 직원 수와 다릅니다.</li>
+            <li>근무지명 클릭 → 직원별 일자 상세 / 매트릭스 셀 클릭 → 시간대별 직원 응답 상세 / 날짜 클릭 → 근무지별 시간대 현황</li>
             <li>컬럼 헤더(근무지명/TO/달성률)를 클릭하여 정렬할 수 있습니다.</li>
           </ul>
         </div>
       </main>
 
-      {/* 매장 드릴다운 모달 */}
+      {/* 근무지 드릴다운 모달 */}
       {selectedStore && (
         <StoreDetailModal
           storeName={selectedStore}
@@ -599,7 +599,7 @@ export default function Dashboard() {
         />
       )}
 
-      {/* 매장 + 일자 셀 드릴다운 모달 */}
+      {/* 근무지 + 일자 셀 드릴다운 모달 */}
       {selectedCell && (
         <StoreDayDetailModal
           storeName={selectedCell.storeName}
@@ -630,8 +630,8 @@ function SortIcon({ active, direction }) {
 // ============================================================
 function StatCard({ icon, label, value, unit, highlight }) {
   return (
-    <div className={`p-5 rounded-xl border ${highlight ? 'bg-stone-900 border-stone-900 text-white' : 'bg-white border-stone-200'}`}>
-      <div className={`flex items-center gap-2 text-xs font-medium mb-3 ${highlight ? 'text-stone-300' : 'text-stone-500'}`}>
+    <div className={`p-5 rounded-xl border ${highlight ? 'bg-[#3299fe] border-[#3299fe] text-white' : 'bg-white border-stone-200'}`}>
+      <div className={`flex items-center gap-2 text-sm font-medium mb-3 ${highlight ? 'text-blue-100' : 'text-stone-500'}`}>
         {icon}
         <span>{label}</span>
       </div>
@@ -639,7 +639,7 @@ function StatCard({ icon, label, value, unit, highlight }) {
         <span className={`text-3xl font-bold tracking-tight ${highlight ? 'text-white' : 'text-stone-900'}`}>
           {value}
         </span>
-        <span className={`text-sm font-medium ${highlight ? 'text-stone-300' : 'text-stone-500'}`}>
+        <span className={`text-sm font-medium ${highlight ? 'text-blue-100' : 'text-stone-500'}`}>
           {unit}
         </span>
       </div>
@@ -648,7 +648,7 @@ function StatCard({ icon, label, value, unit, highlight }) {
 }
 
 // ============================================================
-// 매장 드릴다운 모달
+// 근무지 드릴다운 모달
 // ============================================================
 function StoreDetailModal({ storeName, employees, responses, onClose }) {
   const store = STORES.find((s) => s.name === storeName);
@@ -665,7 +665,7 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
           <div>
             <div className="flex items-center gap-2 text-xs text-stone-500 mb-1">
               <Store className="w-3.5 h-3.5" />
-              <span>매장 상세</span>
+              <span>근무지 상세</span>
             </div>
             <h2 className="text-xl font-bold text-stone-900 flex items-center gap-2">
               {storeName}
@@ -692,7 +692,7 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
         {/* 본문 - 직원 × 일자 매트릭스 */}
         <div className="flex-1 overflow-auto p-6">
           <div className="text-xs text-stone-500 mb-3">
-            각 셀은 해당 일자에 직원이 응답한 횟수입니다 (4회 중). 매장 달성은 시간대별 응답 인원이 TO 이상인지로 판정되며, 셀을 클릭하면 그 일자의 시간대별 상세를 볼 수 있습니다.
+            각 셀은 해당 일자에 직원이 응답한 횟수입니다 (4회 중). 근무지 달성은 시간대별 응답 인원이 TO 이상인지로 판정되며, 셀을 클릭하면 그 일자의 시간대별 상세를 볼 수 있습니다.
           </div>
           <table className="w-full text-sm border-collapse">
             <thead>
@@ -767,7 +767,7 @@ function DateDetailModal({ day, stores, employees, responses, onClose }) {
               2026년 4월 {day}일 ({getDayOfWeek(day)})
             </h2>
             <div className="text-xs text-stone-600 mt-1">
-              매장별 시간대 응답 현황
+              근무지별 시간대 응답 현황
             </div>
           </div>
           <button
@@ -778,16 +778,16 @@ function DateDetailModal({ day, stores, employees, responses, onClose }) {
           </button>
         </div>
 
-        {/* 본문 - 매장 × 시간대 매트릭스 */}
+        {/* 본문 - 근무지 × 시간대 매트릭스 */}
         <div className="flex-1 overflow-auto p-6">
           <div className="text-xs text-stone-500 mb-3">
-            셀의 숫자는 해당 시간대에 매장 직원이 응답한 인원/전체 인원입니다.
+            셀의 숫자는 해당 시간대에 근무지 직원이 응답한 인원/전체 인원입니다.
           </div>
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="bg-stone-50 border-b border-stone-200">
                 <th className="px-3 py-2 text-left text-xs font-semibold text-stone-600 border-r border-stone-200">
-                  매장이름
+                  근무지명
                 </th>
                 <th className="px-3 py-2 text-center text-xs font-semibold text-stone-600 border-r border-stone-200">
                   TO
@@ -867,7 +867,7 @@ function DateDetailModal({ day, stores, employees, responses, onClose }) {
 }
 
 // ============================================================
-// 매장 + 일자 셀 드릴다운 모달
+// 근무지 + 일자 셀 드릴다운 모달
 // ============================================================
 function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) {
   const store = STORES.find((s) => s.name === storeName);
@@ -890,7 +890,7 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
     ).length;
   });
 
-  // 매장 단위 달성: 모든 시간대에 응답인원 >= TO
+  // 근무지 단위 달성: 모든 시간대에 응답인원 >= TO
   const isFulfilled = timeSlotCounts.every((c) => c >= requiredTO);
 
   return (
@@ -901,7 +901,7 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
           <div>
             <div className="flex items-center gap-2 text-xs text-stone-500 mb-1">
               <MapPin className="w-3.5 h-3.5" />
-              <span>매장 + 일자 상세</span>
+              <span>근무지 + 일자 상세</span>
             </div>
             <h2 className="text-xl font-bold text-stone-900 flex items-center gap-2">
               {storeName}
@@ -988,7 +988,7 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
                   </tr>
                 );
               })}
-              {/* 시간대별 합계 행 (매장 달성 판정 핵심) */}
+              {/* 시간대별 합계 행 (근무지 달성 판정 핵심) */}
               <tr className="bg-stone-50 border-t-2 border-stone-300">
                 <td colSpan={2} className="px-3 py-3 text-xs font-bold text-stone-700 border-r border-stone-200 text-right">
                   시간대별 응답인원 / TO ({requiredTO}명)
