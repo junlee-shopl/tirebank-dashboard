@@ -325,49 +325,54 @@ export default function Dashboard() {
 
 
   return (
-    <div className="min-h-screen bg-stone-50 font-[system-ui]" style={{ fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" }}>
-      {/* 헤더 */}
-      <header className="bg-white border-b border-stone-200">
+    <div className="min-h-screen bg-bg">
+      {/* Shopl-style 검은 Top Header strip */}
+      <div className="bg-neutral-700 text-white h-14 flex items-center px-6">
+        <div className="flex items-center gap-3">
+          <span className="text-base font-bold tracking-tight">타이어뱅크</span>
+          <span className="text-neutral-400">·</span>
+          <span className="text-sm font-medium text-neutral-300">위치 확인 모니터링</span>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="text-xs text-neutral-400">powered by</span>
+          <span className="text-sm font-bold text-white">Shopl</span>
+        </div>
+      </div>
+
+      {/* 페이지 헤더 */}
+      <header className="bg-white border-b border-neutral-200">
         <div className="max-w-none mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 text-xs text-stone-500 font-medium tracking-wide mb-1">
-                <span>TIREBANK</span>
-                <span>·</span>
-                <span>위치 확인 모니터링</span>
-              </div>
-              <h1 className="text-2xl font-bold text-stone-900 tracking-tight">
+              <h1 className="text-2xl font-bold text-neutral-700 tracking-tight">
                 근무지별 근무 달성 현황
               </h1>
+              <div className="text-sm text-neutral-500 mt-1">
+                근무지별 시간대 응답을 일자 단위로 모니터링합니다.
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              {/* 월 네비게이션 - 크게 강조 */}
-              <div className="flex items-center gap-1 bg-stone-50 rounded-xl px-1.5 py-1.5 border border-stone-300">
+            <div className="flex items-center gap-3">
+              {/* 월 네비게이션 */}
+              <div className="flex items-center gap-1 bg-white rounded-md px-1 py-1 border border-neutral-200">
                 <button
-                  className="p-2.5 hover:bg-white rounded-lg text-stone-700 transition-colors"
+                  className="p-2 hover:bg-neutral-100 rounded text-neutral-600 transition-colors"
                   aria-label="이전 달"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
-                <div className="px-5 min-w-[160px] text-center">
-                  <div className="text-[10px] text-stone-500 font-medium tracking-wider uppercase mb-0.5">
-                    조회 기간
-                  </div>
-                  <div className="text-lg font-bold text-stone-900 leading-none">
+                <div className="px-4 min-w-[140px] text-center">
+                  <div className="text-base font-semibold text-neutral-700 leading-none">
                     {MONTH_LABEL}
                   </div>
                 </div>
                 <button
-                  className="p-2.5 hover:bg-white rounded-lg text-stone-700 transition-colors"
+                  className="p-2 hover:bg-neutral-100 rounded text-neutral-600 transition-colors"
                   aria-label="다음 달"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
-              <button
-                onClick={handleDownloadExcel}
-                className="flex items-center gap-2 px-4 py-2.5 bg-stone-900 hover:bg-stone-800 text-white rounded-lg text-sm font-semibold transition-colors"
-              >
+              <button onClick={handleDownloadExcel} className="btn-primary">
                 <Download className="w-4 h-4" />
                 엑셀 다운로드
               </button>
@@ -410,78 +415,78 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-4 gap-3">
           <div className="flex items-center gap-3 flex-1">
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="근무지명 또는 코드로 검색"
-                className="w-full pl-9 pr-3 py-2 text-sm border border-stone-300 rounded-lg focus:outline-none focus:border-stone-900 focus:ring-1 focus:ring-stone-900 transition-colors bg-white"
+                className="w-full pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:border-neutral-700 focus:ring-1 focus:ring-neutral-700 transition-colors bg-white"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-stone-100 rounded"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-neutral-150 rounded"
                 >
-                  <X className="w-3.5 h-3.5 text-stone-500" />
+                  <X className="w-3.5 h-3.5 text-neutral-500" />
                 </button>
               )}
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-sm text-stone-700 select-none whitespace-nowrap">
+            <label className="flex items-center gap-2 cursor-pointer text-sm text-neutral-600 select-none whitespace-nowrap">
               <input
                 type="checkbox"
                 checked={filterMode === 'unfulfilled'}
                 onChange={(e) => setFilterMode(e.target.checked ? 'unfulfilled' : 'all')}
-                className="w-4 h-4 accent-stone-900 cursor-pointer"
+                className="w-4 h-4 accent-neutral-700 cursor-pointer"
               />
               <span className="font-medium">미달성 근무지만 보기</span>
             </label>
             {(searchQuery || filterMode === 'unfulfilled' || sortConfig.key) && (
-              <span className="text-xs text-stone-500">
+              <span className="text-xs text-neutral-500">
                 {displayStores.length}개 근무지 표시
               </span>
             )}
           </div>
-          <div className="flex items-center gap-4 text-xs text-stone-500">
+          <div className="flex items-center gap-4 text-xs text-neutral-500">
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 bg-[#3299fe] rounded-sm" />
+              <div className="w-3 h-3 bg-brand rounded-sm" />
               <span>달성</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 bg-stone-100 rounded-sm" />
+              <div className="w-3 h-3 bg-neutral-150 rounded-sm" />
               <span>미달성</span>
             </div>
           </div>
         </div>
 
         {/* 메인 매트릭스 */}
-        <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
+        <div className="card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="bg-stone-50 border-b border-stone-200">
-                  <th className="sticky left-0 bg-stone-50 z-10 px-4 py-3 text-left text-sm font-semibold text-stone-600 border-r border-stone-200 min-w-[170px]">
+                <tr className="bg-neutral-100 border-b border-neutral-200">
+                  <th className="sticky left-0 bg-neutral-100 z-10 px-4 py-3 text-left text-sm font-semibold text-neutral-500 border-r border-neutral-200 min-w-[170px]">
                     <button
                       onClick={() => handleSort('name')}
-                      className="flex items-center gap-1 hover:text-stone-900 transition-colors"
+                      className="flex items-center gap-1 hover:text-neutral-700 transition-colors"
                     >
                       근무지명
                       <SortIcon active={sortConfig.key === 'name'} direction={sortConfig.direction} />
                     </button>
                   </th>
-                  <th className="px-3 py-3 text-center text-sm font-semibold text-stone-600 border-r border-stone-200 min-w-[60px]">
+                  <th className="px-3 py-3 text-center text-sm font-semibold text-neutral-500 border-r border-neutral-200 min-w-[60px]">
                     <button
                       onClick={() => handleSort('to')}
-                      className="flex items-center justify-center gap-1 mx-auto hover:text-stone-900 transition-colors"
+                      className="flex items-center justify-center gap-1 mx-auto hover:text-neutral-700 transition-colors"
                     >
                       TO
                       <SortIcon active={sortConfig.key === 'to'} direction={sortConfig.direction} />
                     </button>
                   </th>
-                  <th className="px-3 py-3 text-center text-sm font-semibold text-stone-600 border-r border-stone-200 min-w-[100px]">
+                  <th className="px-3 py-3 text-center text-sm font-semibold text-neutral-500 border-r border-neutral-200 min-w-[100px]">
                     <button
                       onClick={() => handleSort('rate')}
-                      className="flex items-center justify-center gap-1 mx-auto hover:text-stone-900 transition-colors"
+                      className="flex items-center justify-center gap-1 mx-auto hover:text-neutral-700 transition-colors"
                     >
                       달성률
                       <SortIcon active={sortConfig.key === 'rate'} direction={sortConfig.direction} />
@@ -491,10 +496,10 @@ export default function Dashboard() {
                     <th
                       key={day}
                       onClick={() => setSelectedDay(day)}
-                      className="px-0 py-3 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 last:border-r-0 cursor-pointer hover:bg-stone-100 transition-colors min-w-[14px]"
+                      className="px-1 py-3 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 last:border-r-0 cursor-pointer hover:bg-neutral-150 transition-colors min-w-[24px]"
                     >
                       <div>{day}</div>
-                      <div className={`text-[10px] mt-0.5 ${getDayOfWeek(day) === '일' ? 'text-red-500' : getDayOfWeek(day) === '토' ? 'text-blue-500' : 'text-stone-400'}`}>
+                      <div className={`text-[10px] mt-0.5 ${getDayOfWeek(day) === '일' ? 'text-red-500' : getDayOfWeek(day) === '토' ? 'text-blue-500' : 'text-neutral-400'}`}>
                         {getDayOfWeek(day)}
                       </div>
                     </th>
@@ -507,31 +512,31 @@ export default function Dashboard() {
                   return (
                     <tr
                       key={store.name}
-                      className="border-b border-stone-100 last:border-b-0 hover:bg-stone-50/50 transition-colors"
+                      className="border-b border-neutral-150 last:border-b-0 hover:bg-neutral-100/50 transition-colors"
                     >
                       <td
                         onClick={() => setSelectedStore(store.name)}
-                        className="sticky left-0 bg-white z-10 px-4 py-3 border-r border-stone-200 cursor-pointer group"
+                        className="sticky left-0 bg-white z-10 px-4 py-3 border-r border-neutral-200 cursor-pointer group"
                       >
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-stone-900 group-hover:text-blue-600 transition-colors">
+                          <span className="font-semibold text-neutral-700 group-hover:text-blue-600 transition-colors">
                             {store.name}
                           </span>
-                          <span className="text-xs text-stone-400 font-normal font-mono">
+                          <span className="text-xs text-neutral-400 font-normal font-mono">
                             {store.code}
                           </span>
-                          <ChevronRight className="w-3 h-3 text-stone-400 group-hover:text-blue-600 transition-colors ml-auto" />
+                          <ChevronRight className="w-3 h-3 text-neutral-400 group-hover:text-blue-600 transition-colors ml-auto" />
                         </div>
                       </td>
-                      <td className="px-3 py-3 text-center text-stone-700 border-r border-stone-200">
+                      <td className="px-3 py-3 text-center text-neutral-600 border-r border-neutral-200">
                         <span>{store.currentTO}</span>
                       </td>
-                      <td className="px-3 py-3 text-center border-r border-stone-200">
+                      <td className="px-3 py-3 text-center border-r border-neutral-200">
                         <div className="flex flex-col items-center leading-tight">
-                          <span className={`text-base font-bold ${store.unfulfilledCount === 0 ? 'text-stone-900' : 'text-stone-700'}`}>
+                          <span className={`text-base font-bold ${store.unfulfilledCount === 0 ? 'text-neutral-700' : 'text-neutral-600'}`}>
                             {fulfillRate}%
                           </span>
-                          <span className="text-[11px] text-stone-500 font-normal">
+                          <span className="text-[11px] text-neutral-500 font-normal">
                             {store.fulfilledCount}/{DAYS_IN_MONTH}일
                           </span>
                         </div>
@@ -545,14 +550,14 @@ export default function Dashboard() {
                               e.stopPropagation();
                               setSelectedCell({ storeName: store.name, day });
                             }}
-                            className="px-0 py-1.5 cursor-pointer"
+                            className="px-1 py-2 cursor-pointer"
                           >
                             <div
                               title={`${store.name} · 4월 ${day}일 · ${fulfilled ? '달성' : '미달성'} (클릭 시 상세)`}
-                              className={`mx-auto w-full h-4 rounded-sm transition-transform hover:scale-125 ${
+                              className={`mx-auto w-full h-5 rounded transition-transform hover:scale-125 ${
                                 fulfilled
-                                  ? 'bg-[#3299fe]'
-                                  : 'bg-stone-100'
+                                  ? 'bg-brand'
+                                  : 'bg-neutral-150'
                               }`}
                             />
                           </td>
@@ -617,11 +622,11 @@ export default function Dashboard() {
 // 정렬 아이콘
 // ============================================================
 function SortIcon({ active, direction }) {
-  if (!active) return <ArrowUpDown className="w-3 h-3 text-stone-400" />;
+  if (!active) return <ArrowUpDown className="w-3 h-3 text-neutral-400" />;
   return direction === 'asc' ? (
-    <ArrowUp className="w-3 h-3 text-stone-900" />
+    <ArrowUp className="w-3 h-3 text-neutral-700" />
   ) : (
-    <ArrowDown className="w-3 h-3 text-stone-900" />
+    <ArrowDown className="w-3 h-3 text-neutral-700" />
   );
 }
 
@@ -630,16 +635,16 @@ function SortIcon({ active, direction }) {
 // ============================================================
 function StatCard({ icon, label, value, unit, highlight }) {
   return (
-    <div className={`p-5 rounded-xl border ${highlight ? 'bg-[#3299fe] border-[#3299fe] text-white' : 'bg-white border-stone-200'}`}>
-      <div className={`flex items-center gap-2 text-sm font-medium mb-3 ${highlight ? 'text-blue-100' : 'text-stone-500'}`}>
+    <div className={`p-6 rounded-card ${highlight ? 'bg-brand text-white' : 'card'}`}>
+      <div className={`flex items-center gap-2 text-sm font-medium mb-3 ${highlight ? 'text-shopl-100' : 'text-neutral-500'}`}>
         {icon}
         <span>{label}</span>
       </div>
       <div className="flex items-baseline gap-1">
-        <span className={`text-3xl font-bold tracking-tight ${highlight ? 'text-white' : 'text-stone-900'}`}>
+        <span className={`text-3xl font-bold tracking-tight ${highlight ? 'text-white' : 'text-neutral-700'}`}>
           {value}
         </span>
-        <span className={`text-sm font-medium ${highlight ? 'text-blue-100' : 'text-stone-500'}`}>
+        <span className={`text-sm font-medium ${highlight ? 'text-shopl-100' : 'text-neutral-500'}`}>
           {unit}
         </span>
       </div>
@@ -658,55 +663,55 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
   );
 
   return (
-    <div className="fixed inset-0 bg-stone-900/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-[2400px] max-h-[92vh] w-[95vw] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+      <div className="bg-white rounded-card shadow-dropShadow max-w-[2400px] max-h-[92vh] w-[95vw] overflow-hidden flex flex-col">
         {/* 헤더 */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-stone-200">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
           <div>
-            <div className="flex items-center gap-2 text-xs text-stone-500 mb-1">
+            <div className="flex items-center gap-2 text-xs text-neutral-500 mb-1">
               <Store className="w-3.5 h-3.5" />
               <span>근무지 상세</span>
             </div>
-            <h2 className="text-xl font-bold text-stone-900 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-neutral-700 flex items-center gap-2">
               {storeName}
-              <span className="text-sm font-mono text-stone-400 font-normal">{store?.code}</span>
+              <span className="text-sm font-mono text-neutral-400 font-normal">{store?.code}</span>
             </h2>
-            <div className="flex items-center gap-4 mt-2 text-xs text-stone-600 flex-wrap">
+            <div className="flex items-center gap-4 mt-2 text-xs text-neutral-500 flex-wrap">
               <span>등록 직원 {employees.length}명</span>
-              <span className="text-stone-300">|</span>
+              <span className="text-neutral-300">|</span>
               <span>TO {formatToHistory(store)}</span>
-              <span className="text-stone-300">|</span>
+              <span className="text-neutral-300">|</span>
               <span>달성률 {((fulfilledCount / DAYS_IN_MONTH) * 100).toFixed(0)}% ({fulfilledCount}/{DAYS_IN_MONTH}일)</span>
-              <span className="text-stone-300">|</span>
+              <span className="text-neutral-300">|</span>
               <span>{MONTH_LABEL}</span>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-stone-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-150 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-stone-600" />
+            <X className="w-5 h-5 text-neutral-500" />
           </button>
         </div>
 
         {/* 본문 - 직원 × 일자 매트릭스 */}
         <div className="flex-1 overflow-auto p-6">
-          <div className="text-xs text-stone-500 mb-3">
+          <div className="text-xs text-neutral-500 mb-3">
             각 셀은 해당 일자에 직원이 응답한 횟수입니다 (4회 중). 근무지 달성은 시간대별 응답 인원이 TO 이상인지로 판정되며, 셀을 클릭하면 그 일자의 시간대별 상세를 볼 수 있습니다.
           </div>
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-stone-50 border-b border-stone-200">
-                <th className="sticky left-0 bg-stone-50 z-10 px-3 py-2 text-left text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[120px]">
+              <tr className="bg-neutral-100 border-b border-neutral-200">
+                <th className="sticky left-0 bg-neutral-100 z-10 px-3 py-2 text-left text-xs font-semibold text-neutral-500 border-r border-neutral-200 min-w-[120px]">
                   직원명
                 </th>
-                <th className="px-3 py-2 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[100px]">
+                <th className="px-3 py-2 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 min-w-[100px]">
                   사번
                 </th>
                 {Array.from({ length: DAYS_IN_MONTH }, (_, i) => i + 1).map((day) => (
                   <th
                     key={day}
-                    className="px-1 py-2 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 last:border-r-0 min-w-[40px]"
+                    className="px-1 py-2 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 last:border-r-0 min-w-[40px]"
                   >
                     {day}
                   </th>
@@ -715,23 +720,23 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
             </thead>
             <tbody>
               {employees.map((emp) => (
-                <tr key={emp.id} className="border-b border-stone-100 last:border-b-0">
-                  <td className="sticky left-0 bg-white z-10 px-3 py-3.5 font-medium text-stone-900 border-r border-stone-200">
+                <tr key={emp.id} className="border-b border-neutral-150 last:border-b-0">
+                  <td className="sticky left-0 bg-white z-10 px-3 py-3.5 font-medium text-neutral-700 border-r border-neutral-200">
                     {emp.name}
                   </td>
-                  <td className="px-3 py-3.5 text-center text-stone-600 text-xs border-r border-stone-200">
+                  <td className="px-3 py-3.5 text-center text-neutral-500 text-xs border-r border-neutral-200">
                     {emp.empNo}
                   </td>
                   {Array.from({ length: DAYS_IN_MONTH }, (_, i) => i + 1).map((day) => {
                     const { ok, total } = getEmployeeDayResult(emp, day, responses);
                     const allOk = ok === total;
                     return (
-                      <td key={day} className="px-1 py-2.5 border-r border-stone-100 last:border-r-0">
+                      <td key={day} className="px-1 py-2.5 border-r border-neutral-150 last:border-r-0">
                         <div
                           className={`mx-auto w-full py-2 rounded text-[10px] font-semibold text-center ${
                             allOk
-                              ? 'bg-stone-800 text-white'
-                              : 'bg-stone-50 text-stone-600 border border-stone-300'
+                              ? 'bg-neutral-700 text-white'
+                              : 'bg-neutral-100 text-neutral-500 border border-neutral-300'
                           }`}
                         >
                           {ok}/{total}
@@ -754,53 +759,53 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
 // ============================================================
 function DateDetailModal({ day, stores, employees, responses, onClose }) {
   return (
-    <div className="fixed inset-0 bg-stone-900/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-[2000px] max-h-[92vh] w-[80vw] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+      <div className="bg-white rounded-card shadow-dropShadow max-w-[2000px] max-h-[92vh] w-[80vw] overflow-hidden flex flex-col">
         {/* 헤더 */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-stone-200">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
           <div>
-            <div className="flex items-center gap-2 text-xs text-stone-500 mb-1">
+            <div className="flex items-center gap-2 text-xs text-neutral-500 mb-1">
               <CalendarIcon className="w-3.5 h-3.5" />
               <span>일자 상세</span>
             </div>
-            <h2 className="text-xl font-bold text-stone-900">
+            <h2 className="text-xl font-bold text-neutral-700">
               2026년 4월 {day}일 ({getDayOfWeek(day)})
             </h2>
-            <div className="text-xs text-stone-600 mt-1">
+            <div className="text-xs text-neutral-500 mt-1">
               근무지별 시간대 응답 현황
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-stone-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-150 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-stone-600" />
+            <X className="w-5 h-5 text-neutral-500" />
           </button>
         </div>
 
         {/* 본문 - 근무지 × 시간대 매트릭스 */}
         <div className="flex-1 overflow-auto p-6">
-          <div className="text-xs text-stone-500 mb-3">
+          <div className="text-xs text-neutral-500 mb-3">
             셀의 숫자는 해당 시간대에 근무지 직원이 응답한 인원/전체 인원입니다.
           </div>
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-stone-50 border-b border-stone-200">
-                <th className="px-3 py-2 text-left text-xs font-semibold text-stone-600 border-r border-stone-200">
+              <tr className="bg-neutral-100 border-b border-neutral-200">
+                <th className="px-3 py-2 text-left text-xs font-semibold text-neutral-500 border-r border-neutral-200">
                   근무지명
                 </th>
-                <th className="px-3 py-2 text-center text-xs font-semibold text-stone-600 border-r border-stone-200">
+                <th className="px-3 py-2 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200">
                   TO
                 </th>
                 {TIMES.map((time) => (
                   <th
                     key={time}
-                    className="px-3 py-2 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 last:border-r-0"
+                    className="px-3 py-2 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 last:border-r-0"
                   >
                     {time}
                   </th>
                 ))}
-                <th className="px-3 py-2 text-center text-xs font-semibold text-stone-600">
+                <th className="px-3 py-2 text-center text-xs font-semibold text-neutral-500">
                   결과
                 </th>
               </tr>
@@ -817,23 +822,23 @@ function DateDetailModal({ day, stores, employees, responses, onClose }) {
                 });
                 const fulfilled = timeResults.every((r) => r.ok >= r.required);
                 return (
-                  <tr key={store.name} className="border-b border-stone-100 last:border-b-0">
-                    <td className="px-3 py-2 font-medium text-stone-900 border-r border-stone-200">
+                  <tr key={store.name} className="border-b border-neutral-150 last:border-b-0">
+                    <td className="px-3 py-2 font-medium text-neutral-700 border-r border-neutral-200">
                       <div className="flex items-center gap-1.5">
                         <span>{store.name}</span>
-                        <span className="text-[10px] text-stone-400 font-mono font-normal">{store.code}</span>
+                        <span className="text-[10px] text-neutral-400 font-mono font-normal">{store.code}</span>
                       </div>
                     </td>
-                    <td className="px-3 py-2 text-center text-stone-700 border-r border-stone-200">
+                    <td className="px-3 py-2 text-center text-neutral-600 border-r border-neutral-200">
                       {requiredTO}
                     </td>
                     {timeResults.map((r, idx) => (
-                      <td key={idx} className="px-3 py-1.5 text-center border-r border-stone-200 last:border-r-0">
+                      <td key={idx} className="px-3 py-1.5 text-center border-r border-neutral-200 last:border-r-0">
                         <span
                           className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${
                             r.ok >= r.required
-                              ? 'bg-stone-100 text-stone-800'
-                              : 'bg-stone-50 text-stone-500 border border-stone-300'
+                              ? 'bg-neutral-150 text-neutral-700'
+                              : 'bg-neutral-100 text-neutral-500 border border-neutral-300'
                           }`}
                         >
                           {r.ok}/{r.required}
@@ -844,14 +849,14 @@ function DateDetailModal({ day, stores, employees, responses, onClose }) {
                       <span
                         className={`inline-flex items-center justify-center w-6 h-6 rounded ${
                           fulfilled
-                            ? 'bg-stone-800'
-                            : 'bg-stone-50 border border-stone-300'
+                            ? 'bg-neutral-700'
+                            : 'bg-neutral-100 border border-neutral-300'
                         }`}
                       >
                         {fulfilled ? (
                           <Check className="w-3 h-3 text-white" strokeWidth={3} />
                         ) : (
-                          <Minus className="w-3 h-3 text-stone-400" strokeWidth={2.5} />
+                          <Minus className="w-3 h-3 text-neutral-400" strokeWidth={2.5} />
                         )}
                       </span>
                     </td>
@@ -894,25 +899,25 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
   const isFulfilled = timeSlotCounts.every((c) => c >= requiredTO);
 
   return (
-    <div className="fixed inset-0 bg-stone-900/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-[1100px] max-h-[92vh] w-[55vw] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+      <div className="bg-white rounded-card shadow-dropShadow max-w-[1100px] max-h-[92vh] w-[55vw] overflow-hidden flex flex-col">
         {/* 헤더 */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-stone-200">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
           <div>
-            <div className="flex items-center gap-2 text-xs text-stone-500 mb-1">
+            <div className="flex items-center gap-2 text-xs text-neutral-500 mb-1">
               <MapPin className="w-3.5 h-3.5" />
               <span>근무지 + 일자 상세</span>
             </div>
-            <h2 className="text-xl font-bold text-stone-900 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-neutral-700 flex items-center gap-2">
               {storeName}
-              <span className="text-sm font-mono text-stone-400 font-normal">{store?.code}</span>
-              <span className="text-stone-300 mx-1">·</span>
+              <span className="text-sm font-mono text-neutral-400 font-normal">{store?.code}</span>
+              <span className="text-neutral-300 mx-1">·</span>
               <span>2026년 4월 {day}일 ({getDayOfWeek(day)})</span>
             </h2>
             <div className="flex items-center gap-3 mt-2">
               <span
                 className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold ${
-                  isFulfilled ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-700 border border-stone-300'
+                  isFulfilled ? 'bg-neutral-700 text-white' : 'bg-neutral-150 text-neutral-600 border border-neutral-300'
                 }`}
               >
                 {isFulfilled ? (
@@ -921,45 +926,45 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
                   <><Minus className="w-3 h-3" strokeWidth={2.5} />미달성</>
                 )}
               </span>
-              <span className="text-xs text-stone-600">
+              <span className="text-xs text-neutral-500">
                 TO {requiredTO}명 · 등록 {employees.length}명
               </span>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-stone-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-150 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-stone-600" />
+            <X className="w-5 h-5 text-neutral-500" />
           </button>
         </div>
 
         {/* 본문 */}
         <div className="flex-1 overflow-auto p-6">
-          <div className="text-xs text-stone-500 mb-3">
+          <div className="text-xs text-neutral-500 mb-3">
             각 셀은 직원의 시간대별 응답 시각과 결과입니다. 마지막 행은 시간대별 응답 인원과 TO 비교입니다.
           </div>
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-stone-50 border-b border-stone-200">
-                <th className="px-3 py-2 text-left text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[100px]">
+              <tr className="bg-neutral-100 border-b border-neutral-200">
+                <th className="px-3 py-2 text-left text-xs font-semibold text-neutral-500 border-r border-neutral-200 min-w-[100px]">
                   직원명
                 </th>
-                <th className="px-3 py-2 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[100px]">
+                <th className="px-3 py-2 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 min-w-[100px]">
                   사번
                 </th>
                 {TIMES.map((time) => (
                   <th
                     key={time}
-                    className="px-3 py-2 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 min-w-[140px]"
+                    className="px-3 py-2 text-center text-xs font-semibold text-neutral-500 border-r border-neutral-200 min-w-[140px]"
                   >
                     <div className="flex items-center justify-center gap-1">
-                      <Clock className="w-3 h-3 text-stone-400" />
+                      <Clock className="w-3 h-3 text-neutral-400" />
                       <span>{time}</span>
                     </div>
                   </th>
                 ))}
-                <th className="px-3 py-2 text-center text-xs font-semibold text-stone-600 min-w-[80px]">
+                <th className="px-3 py-2 text-center text-xs font-semibold text-neutral-500 min-w-[80px]">
                   4회 응답
                 </th>
               </tr>
@@ -968,20 +973,20 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
               {empData.map(({ emp, timeResults, respondedCount }) => {
                 const allOk = respondedCount === TIMES.length;
                 return (
-                  <tr key={emp.id} className="border-b border-stone-100 last:border-b-0">
-                    <td className="px-3 py-2.5 font-medium text-stone-900 border-r border-stone-200">
+                  <tr key={emp.id} className="border-b border-neutral-150 last:border-b-0">
+                    <td className="px-3 py-2.5 font-medium text-neutral-700 border-r border-neutral-200">
                       {emp.name}
                     </td>
-                    <td className="px-3 py-2.5 text-center text-stone-600 text-xs font-mono border-r border-stone-200">
+                    <td className="px-3 py-2.5 text-center text-neutral-500 text-xs font-mono border-r border-neutral-200">
                       {emp.empNo}
                     </td>
                     {timeResults.map((tr, idx) => (
-                      <td key={idx} className="px-3 py-2 text-center border-r border-stone-200">
+                      <td key={idx} className="px-3 py-2 text-center border-r border-neutral-200">
                         <ResponseChip status={tr.status} responseTime={tr.responseTime} />
                       </td>
                     ))}
-                    <td className="px-3 py-2 text-center text-xs text-stone-600">
-                      <span className={allOk ? 'font-semibold text-stone-800' : ''}>
+                    <td className="px-3 py-2 text-center text-xs text-neutral-500">
+                      <span className={allOk ? 'font-semibold text-neutral-700' : ''}>
                         {respondedCount}/{TIMES.length}
                       </span>
                     </td>
@@ -989,17 +994,17 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
                 );
               })}
               {/* 시간대별 합계 행 (근무지 달성 판정 핵심) */}
-              <tr className="bg-stone-50 border-t-2 border-stone-300">
-                <td colSpan={2} className="px-3 py-3 text-xs font-bold text-stone-700 border-r border-stone-200 text-right">
+              <tr className="bg-neutral-100 border-t-2 border-neutral-300">
+                <td colSpan={2} className="px-3 py-3 text-xs font-bold text-neutral-600 border-r border-neutral-200 text-right">
                   시간대별 응답인원 / TO ({requiredTO}명)
                 </td>
                 {timeSlotCounts.map((count, idx) => {
                   const ok = count >= requiredTO;
                   return (
-                    <td key={idx} className="px-3 py-3 text-center border-r border-stone-200">
+                    <td key={idx} className="px-3 py-3 text-center border-r border-neutral-200">
                       <span
                         className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded font-bold text-sm ${
-                          ok ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-700 border border-stone-300'
+                          ok ? 'bg-neutral-700 text-white' : 'bg-neutral-150 text-neutral-600 border border-neutral-300'
                         }`}
                       >
                         {ok ? (
@@ -1015,13 +1020,13 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
                 <td className="px-3 py-3 text-center">
                   <span
                     className={`inline-flex items-center justify-center w-7 h-7 rounded ${
-                      isFulfilled ? 'bg-stone-800' : 'bg-stone-50 border border-stone-300'
+                      isFulfilled ? 'bg-neutral-700' : 'bg-neutral-100 border border-neutral-300'
                     }`}
                   >
                     {isFulfilled ? (
                       <Check className="w-4 h-4 text-white" strokeWidth={3} />
                     ) : (
-                      <Minus className="w-4 h-4 text-stone-400" strokeWidth={2.5} />
+                      <Minus className="w-4 h-4 text-neutral-400" strokeWidth={2.5} />
                     )}
                   </span>
                 </td>
@@ -1030,19 +1035,19 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
           </table>
 
           {/* 범례 */}
-          <div className="mt-4 flex items-center gap-3 text-xs text-stone-500 flex-wrap">
-            <span className="font-semibold text-stone-600">범례:</span>
+          <div className="mt-4 flex items-center gap-3 text-xs text-neutral-500 flex-wrap">
+            <span className="font-semibold text-neutral-500">범례:</span>
             <span className="inline-flex items-center gap-1">
-              <span className="inline-block w-2 h-2 bg-stone-800 rounded-full" /> 배정 근무지에서 응답
+              <span className="inline-block w-2 h-2 bg-neutral-700 rounded-full" /> 배정 근무지에서 응답
             </span>
             <span className="inline-flex items-center gap-1">
               <span className="inline-block w-2 h-2 bg-amber-400 rounded-full" /> 근무지 아닌 곳에서 응답
             </span>
             <span className="inline-flex items-center gap-1">
-              <span className="inline-block w-2 h-2 bg-stone-400 rounded-full" /> 거절
+              <span className="inline-block w-2 h-2 bg-neutral-400 rounded-full" /> 거절
             </span>
             <span className="inline-flex items-center gap-1">
-              <span className="inline-block w-2 h-2 bg-stone-200 rounded-full" /> 무응답
+              <span className="inline-block w-2 h-2 bg-neutral-200 rounded-full" /> 무응답
             </span>
           </div>
         </div>
@@ -1057,7 +1062,7 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
 function ResponseChip({ status, responseTime }) {
   const config = {
     '배정 근무지': {
-      bg: 'bg-stone-800',
+      bg: 'bg-neutral-700',
       text: 'text-white',
       icon: <Check className="w-3 h-3" strokeWidth={3} />,
       label: responseTime,
@@ -1069,14 +1074,14 @@ function ResponseChip({ status, responseTime }) {
       label: `위치 외 ${responseTime}`,
     },
     '거절': {
-      bg: 'bg-stone-100 border border-stone-300',
-      text: 'text-stone-600',
+      bg: 'bg-neutral-150 border border-neutral-300',
+      text: 'text-neutral-500',
       icon: <X className="w-3 h-3" strokeWidth={2.5} />,
       label: `거절 ${responseTime}`,
     },
     '무응답': {
-      bg: 'bg-stone-50 border border-stone-200',
-      text: 'text-stone-400',
+      bg: 'bg-neutral-100 border border-neutral-200',
+      text: 'text-neutral-400',
       icon: <Minus className="w-3 h-3" strokeWidth={2} />,
       label: '미응답',
     },

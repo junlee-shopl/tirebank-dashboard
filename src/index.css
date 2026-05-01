@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply bg-bg text-neutral-700 antialiased;
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-card;
+    border: 1px solid #f0f0f0;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-1.5 px-4 py-2.5 rounded-md text-sm font-semibold text-white bg-brand hover:bg-brandHover transition;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium text-neutral-700 bg-white border border-neutral-200 hover:bg-neutral-100 transition;
+  }
+}
+
+.thin-scroll::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: #eaeaea;
+  border-radius: 4px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
