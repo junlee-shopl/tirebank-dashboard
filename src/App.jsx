@@ -448,7 +448,7 @@ export default function Dashboard() {
               <span>달성</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 bg-stone-50 border border-stone-300 rounded-sm" />
+              <div className="w-3 h-3 bg-stone-100 rounded-sm" />
               <span>미달성</span>
             </div>
           </div>
@@ -491,7 +491,7 @@ export default function Dashboard() {
                     <th
                       key={day}
                       onClick={() => setSelectedDay(day)}
-                      className="px-1 py-3 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 last:border-r-0 cursor-pointer hover:bg-stone-100 transition-colors min-w-[42px]"
+                      className="px-0.5 py-3 text-center text-xs font-semibold text-stone-600 border-r border-stone-200 last:border-r-0 cursor-pointer hover:bg-stone-100 transition-colors min-w-[28px]"
                     >
                       <div>{day}</div>
                       <div className={`text-[10px] mt-0.5 ${getDayOfWeek(day) === '일' ? 'text-red-500' : getDayOfWeek(day) === '토' ? 'text-blue-500' : 'text-stone-400'}`}>
@@ -545,22 +545,16 @@ export default function Dashboard() {
                               e.stopPropagation();
                               setSelectedCell({ storeName: store.name, day });
                             }}
-                            className="px-1 py-2 border-r border-stone-100 last:border-r-0 cursor-pointer"
+                            className="px-0.5 py-1.5 cursor-pointer"
                           >
                             <div
                               title={`${store.name} · 4월 ${day}일 · ${fulfilled ? '달성' : '미달성'} (클릭 시 상세)`}
-                              className={`mx-auto w-full h-7 rounded flex items-center justify-center transition-transform hover:scale-110 ${
+                              className={`mx-auto w-full h-4 rounded-sm transition-transform hover:scale-125 ${
                                 fulfilled
                                   ? 'bg-stone-800'
-                                  : 'bg-stone-50 border border-stone-300'
+                                  : 'bg-stone-100'
                               }`}
-                            >
-                              {fulfilled ? (
-                                <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                              ) : (
-                                <Minus className="w-3 h-3 text-stone-400" strokeWidth={2.5} />
-                              )}
-                            </div>
+                            />
                           </td>
                         );
                       })}
