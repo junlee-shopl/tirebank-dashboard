@@ -562,7 +562,7 @@ export default function Dashboard() {
                           >
                             <div
                               title={`${store.name} · 4월 ${day}일 · ${fulfilled ? '달성' : '미달성'} (클릭 시 상세)`}
-                              className={`mx-auto w-full h-5 rounded transition-transform hover:scale-125 ${
+                              className={`mx-auto w-1/2 h-5 rounded transition-transform hover:scale-125 ${
                                 fulfilled
                                   ? 'bg-brand'
                                   : 'bg-neutral-150'
