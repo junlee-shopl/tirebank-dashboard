@@ -671,7 +671,7 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
   );
 
   return (
-    <div className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+    <div onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
       <div className="bg-white rounded-card shadow-dropShadow max-w-[2400px] max-h-[92vh] w-[95vw] overflow-hidden flex flex-col">
         {/* 헤더 */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
@@ -774,7 +774,7 @@ function StoreDetailModal({ storeName, employees, responses, onClose }) {
 // ============================================================
 function DateDetailModal({ day, stores, employees, responses, onClose }) {
   return (
-    <div className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+    <div onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
       <div className="bg-white rounded-card shadow-dropShadow max-w-[2000px] max-h-[92vh] w-[80vw] overflow-hidden flex flex-col">
         {/* 헤더 */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
@@ -914,7 +914,7 @@ function StoreDayDetailModal({ storeName, day, employees, responses, onClose }) 
   const isFulfilled = timeSlotCounts.every((c) => c >= requiredTO);
 
   return (
-    <div className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+    <div onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} className="fixed inset-0 bg-neutral-700/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
       <div className="bg-white rounded-card shadow-dropShadow max-w-[1100px] max-h-[92vh] w-[55vw] overflow-hidden flex flex-col">
         {/* 헤더 */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
