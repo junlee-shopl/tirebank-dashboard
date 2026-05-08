@@ -53,9 +53,31 @@ export default {
       },
       borderRadius: {
         card: "12px",
+        // shopl borderRadius scale (px)
+        "shopl-04": "4px",
+        "shopl-06": "6px",
+        "shopl-08": "8px",
+        "shopl-12": "12px",
+        "shopl-16": "16px",
+        "shopl-20": "20px",
       },
       boxShadow: {
+        // single dropShadow token from Token Studio
         dropShadow: "0 8px 16px 0 rgba(0,0,0,0.12)",
+        // light elevation for cards/inputs
+        elevation1: "0 1px 2px 0 rgba(0,0,0,0.04)",
+      },
+      fontSize: {
+        // Shopl typography tokens (size / line-height)
+        heading1: ["28px", { lineHeight: "34px" }],
+        heading2: ["24px", { lineHeight: "28px" }],
+        heading3: ["20px", { lineHeight: "24px" }],
+        title1: ["18px", { lineHeight: "22px" }],
+        title2: ["16px", { lineHeight: "20px" }],
+        body1: ["14px", { lineHeight: "18px" }],
+        body2: ["13px", { lineHeight: "16px" }],
+        body3: ["12px", { lineHeight: "16px" }],
+        caption: ["12px", { lineHeight: "16px" }],
       },
     },
   },

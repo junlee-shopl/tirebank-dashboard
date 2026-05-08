@@ -8,21 +8,91 @@
     @apply bg-bg text-neutral-700 antialiased;
     font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   }
+  /* Shopl 표기: regular=500 / medium=600 / bold=700 */
+  body { font-weight: 500; }
 }
 
 @layer components {
+  /* 카드: 흰 배경 + 12px 라운드 + 거의 invisible border */
   .card {
     @apply bg-white rounded-card;
     border: 1px solid #f0f0f0;
   }
+
+  /* Buttons */
   .btn-primary {
-    @apply inline-flex items-center gap-1.5 px-4 py-2.5 rounded-md text-sm font-semibold text-white bg-brand hover:bg-brandHover transition;
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-shopl-08 text-body1 font-bold text-white bg-brand hover:bg-brandHover transition-colors;
   }
   .btn-secondary {
-    @apply inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-sm font-medium text-neutral-700 bg-white border border-neutral-200 hover:bg-neutral-100 transition;
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-shopl-08 text-body1 font-bold text-neutral-700 bg-white border border-neutral-200 hover:bg-neutral-100 transition-colors;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1 px-3 py-2 rounded-shopl-06 text-body2 font-medium text-neutral-600 hover:bg-neutral-100 transition-colors;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full px-3 py-2 text-body1 bg-white border border-neutral-200 rounded-shopl-06 text-neutral-700 placeholder-neutral-400 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors;
+  }
+  .label {
+    @apply block text-body2 font-bold text-neutral-600 mb-1.5;
+  }
+
+  /* Badges (rounded-full outline 패턴) */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-body3 font-bold border;
+  }
+  .badge-success {
+    @apply badge bg-shopl-100 border-shopl-200 text-shopl-400;
+  }
+  .badge-neutral {
+    @apply badge bg-white border-neutral-300 text-neutral-600;
+  }
+  .badge-danger {
+    @apply badge bg-red-50 border-red-200 text-red-600;
+  }
+  .badge-warning {
+    @apply badge bg-yellow-100 border-yellow-300 text-amber-700;
+  }
+
+  /* Stat / hero cards */
+  .stat-card {
+    @apply card p-5;
+  }
+  .stat-card-hero {
+    @apply rounded-card p-5 bg-brand text-white;
+  }
+
+  /* Table base */
+  .table-base {
+    @apply w-full text-body1 border-collapse;
+  }
+  .table-base thead th {
+    @apply bg-neutral-100 text-body3 font-bold text-neutral-600 px-3 py-3 text-left border-b border-neutral-200;
+  }
+  .table-base tbody td {
+    @apply px-3 py-3 border-b border-neutral-150 text-neutral-700;
+  }
+  .table-base tbody tr:hover {
+    @apply bg-neutral-100;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    @apply fixed inset-0 bg-neutral-700/40 z-50 flex items-center justify-center p-6 backdrop-blur-sm;
+  }
+  .modal-panel {
+    @apply bg-white rounded-card shadow-dropShadow overflow-hidden flex flex-col;
+  }
+  .modal-header {
+    @apply flex items-start justify-between px-6 py-5 border-b border-neutral-200;
+  }
+  .modal-footer {
+    @apply flex items-center justify-end gap-2 px-6 py-4 border-t border-neutral-200 bg-neutral-100/40;
   }
 }
 
+/* Custom scrollbar */
 .thin-scroll::-webkit-scrollbar {
   height: 8px;
   width: 8px;

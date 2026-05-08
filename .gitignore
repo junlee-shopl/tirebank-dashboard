@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+
+# Runtime data (TO 변경 이력 등 운영 데이터)
+data/
 
 # Editor directories and files
 .vscode/*
